@@ -27,10 +27,15 @@ const test = {
         {prop1: 'a', prop2: 2, prop3: false},
         {prop1: 'b', prop2: 3, prop3: true}
       ],
+      "l": [null, null],
+      "m": [undefined, undefined],
+      "n": [{}, {}],
+
     },
     "mode": "default"
   },
 }
+console.log(toAsyncApiModel(test))
 ```
 
 ```yaml
@@ -91,8 +96,23 @@ Message:
                               type: number
                             prop3:
                               type: boolean
+                  l:
+                    type: array
+                    items:
+                      type: object
+                          properties:
+                            unknown
+                  m:
+                    type: array
+                    items:
+                      type: unknown
+                  n:
+                    type: array
+                    items:
+                      type: object # Empty object
             mode:
               type: string
+
 ```
 
 Example 2
