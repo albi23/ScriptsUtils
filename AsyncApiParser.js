@@ -17,7 +17,10 @@ function parseToAsyncApiModel(obj, lvl = 0) {
     if (Array.isArray(value)) {
       const head = Array.from(value)[0];
       if (typeof head == 'object') {
-        objString += `${s}${key}:\n${s}  type: array\n${s}  items:\n${s}    type: object\n${s}        properties:\n${parseToAsyncApiModel(head, lvl + 5)}`;
+        const isEmptyObject = (!!head && Object.keys(head).length === 0)
+        objString += (!isEmptyObject) ?
+            `${s}${key}:\n${s}  type: array\n${s}  items:\n${s}    type: object\n${s}        properties:\n${parseToAsyncApiModel(head, lvl + 5)}`
+            : `${s}${key}:\n${s}  type: array\n${s}  items:\n${s}    type: object # Empty object`;
       } else {
         objString += `${s}${key}:\n${s}  type: array\n${s}  items:\n${s}    type: ${parseToAsyncApiModel(head, 0)}`;
       }
